@@ -12,6 +12,7 @@
 </div>
 
 <script src="js/graphEditor.js"></script>
+<script src="js/Viewport.js"></script>
 <script src="js/math/graph.js"></script>
 <script src="js/math/utils.js"></script>
 <script src="js/primitives/point.js"></script>
@@ -32,7 +33,8 @@
     const s3 = new Segment(p1, p4);
 
     const graph = new Graph([p1, p2, p3, p4], [s1, s2, s3]);
-    const graphEditor = new GraphEditor(myCanvas, graph);
+    const viewport = new Viewport(myCanvas);
+    const graphEditor = new GraphEditor(myCanvas, graph, viewport);
 
     animate();
 
