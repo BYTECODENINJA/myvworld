@@ -1,9 +1,10 @@
 class GraphEditor{
-    constructor(canvas, graph){
-        this.canvas = canvas;
+    constructor(viewport, graph){
+        this.viewport = viewport;
+        this.canvas = viewport.canvas;
         this.graph = graph;
 
-        this.ctx = canvas.getContext("2d");
+        this.ctx = this.canvas.getContext("2d");
         this.selected = null;
         this.hovered = null;
         this.dragging = false;
@@ -23,7 +24,7 @@ class GraphEditor{
     }
 
     #handleMouseMove(evt){
-        this.mouse = new Point(evt.offsetX, evt.offsetY);
+        this.mouse = this.viewport.getMouse(evt);
         this.hovered = getNearestPoint(this.mouse, this.graph.points, 10);
         if(this.dragging === true){
             this.selected.x = this.mouse.x;
@@ -75,7 +76,7 @@ class GraphEditor{
         }
         if(this.selected){
             const intent = this.hovered ? this.hovered : this.mouse;
-            new Segment(this.selected, intent).draw(ctx, { dash: [3, 3] });
+            new Segment(this.selected, intent).draw(this.ctx, { dash: [3, 3] });
             this.selected.draw(this.ctx, { outline: true});
         }
     }
